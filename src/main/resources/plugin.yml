@@ -1,0 +1,7 @@
+name: TerraCraft
+version: ${project.version}
+main: de.docbrumm.terracraft.TerraCraft
+api-version: 1.16
+authors: [DocBrumm]
+description: A 2D game in Minecraft
+website: docbrumm.stckoverflw.de
