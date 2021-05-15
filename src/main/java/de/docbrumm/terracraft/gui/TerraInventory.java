@@ -1,7 +1,6 @@
 package de.docbrumm.terracraft.gui;
 
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.libs.it.unimi.dsi.fastutil.Hash;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;

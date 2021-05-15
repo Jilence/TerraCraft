@@ -1,4 +1,4 @@
-package de.docbrumm.terracraft.gui.world;
+package de.docbrumm.terracraft.world;
 
 import org.bukkit.Material;
 import org.bukkit.World;
