@@ -1,0 +1,7 @@
+custom_colors:
+  brown: "#694e0a"
+
+languages:
+  - english
+
+debug: true
