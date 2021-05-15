@@ -17,11 +17,20 @@ public class LanguageTerraInventory extends TerraInventory<Language> implements 
 
     public LanguageTerraInventory() {
         super(5, "Language");
+        for (String name : TerraCraft.getInstance().getLanguages().keySet()) {
+            appendContent(TerraCraft.getInstance().getLanguages().get(name));
+        }
     }
 
     @Override
     public void renderPage(Player player, int page, Inventory inventory, List<Language> content) {
-
+        int i = 0;
+        System.out.println(content.size());
+        content.forEach(System.out::println);
+        for (Language language : content) {
+            inventory.setItem(i, language.getHead());
+            i++;
+        }
     }
 
     @Override

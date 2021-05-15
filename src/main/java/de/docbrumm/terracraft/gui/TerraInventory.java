@@ -11,13 +11,23 @@ import java.util.List;
 
 public abstract class TerraInventory<T> implements Listener {
 
-    int height = 3;
+    int height = 3, start = 0, stop = height*9-1;
     String title = "undefined";
     HashMap<Player, Inventory> inventories = new HashMap();
 
     public TerraInventory(int height, String title) {
         this.height = height;
         this.title = title;
+    }
+
+    public TerraInventory(int height, String title, int start, int stop) {
+        this.height = height;
+        this.title = title;
+    }
+
+    public void appendContent(T contentItem) {
+        System.out.println(content.size() / (start - stop));
+        content.put(content.size() / (start - stop), contentItem);
     }
 
     private Inventory buildInventory(Player player) {
