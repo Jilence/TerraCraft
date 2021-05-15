@@ -2,6 +2,13 @@ name: TerraCraft
 version: ${project.version}
 main: de.docbrumm.terracraft.TerraCraft
 api-version: 1.16
-authors: [DocBrumm]
-description: A 2D game in Minecraft
+authors: 
+  - DocBrumm
+  - MoMMde
+description: Play Terraria, a 2D Game, in Minecraft.
 website: docbrumm.stckoverflw.de
+
+commands:
+  language:
+    description: Change your Language ingame
+    permission: terracraft.language.inventory
