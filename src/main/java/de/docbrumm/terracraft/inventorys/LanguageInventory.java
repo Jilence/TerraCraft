@@ -1,51 +1,40 @@
 package de.docbrumm.terracraft.inventorys;
 
+import com.google.gson.JsonObject;
 import de.docbrumm.terracraft.TerraCraft;
 import de.docbrumm.terracraft.language.Language;
-import de.docbrumm.terracraft.user.User;
-import de.docbrumm.terracraft.util.ItemBuilder;
-import net.kyori.adventure.text.Component;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemFlag;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.bukkit.inventory.ItemStack;
 
-import java.util.Objects;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
-public class LanguageInventory {
+public class LanguageInventory extends TerraInventory<Language> {
 
-
-
-
-
-
-
-
-    public void openGUI(Player player){
-
-        User user = new User(Objects.requireNonNull(player).getUniqueId());
-
-
-        String title = user.getLanguage().object().get("languageInventoryTitle").getAsString();
-
-        Inventory inventory = Bukkit.createInventory(null, 3 * 9, Component.text(title));
-        for(int i = 0; i < inventory.getSize(); i++){
-            inventory.setItem(i, new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).setName("").setLore("").addFlag(ItemFlag.HIDE_ATTRIBUTES).build());
+    public LanguageInventory() {
+        super(4, "language_inventory");
+        for (String key : TerraCraft.getInstance().getLanguages().keySet()) {
+            appentT(TerraCraft.getInstance().getLanguages().get(key));
         }
-
-        int i = 11;
-
-        for(String languageName : TerraCraft.getInstance().getLanguages().keySet()){
-            Language language = TerraCraft.getInstance().getLanguages().get(languageName);
-            inventory.setItem(i, language.getHead());
-            i++;
-        }
-
-        player.openInventory(inventory);
     }
 
+    @Override
+    public void renderPage(Inventory inventory, int page, Player player, JsonObject object, List<Language> contentOfPage) {
+        AtomicInteger i = new AtomicInteger();
+        contentOfPage.forEach(language -> {
+            inventory.setItem(i.get(), language.getHead());
+            i.getAndIncrement();
+        });
+    }
 
+    @Override
+    public void onClick(Inventory inventory, Player player, ItemStack itemStack) {
+        player.sendMessage(itemStack.getI18NDisplayName());
+    }
+
+    @Override
+    public void onClose(Inventory inventory, Player player) {
+
+    }
 }
