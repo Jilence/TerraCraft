@@ -6,9 +6,14 @@ import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 import de.docbrumm.terracraft.language.Language;
 import de.docbrumm.terracraft.listener.PlayerConnectionListener;
+import de.docbrumm.terracraft.user.User;
+import de.docbrumm.terracraft.world.WorldGenerator;
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.PluginManager;
+import org.bukkit.entity.Player;
+import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -19,12 +24,15 @@ import java.util.HashMap;
 public class TerraCraft extends JavaPlugin {
 
     private final HashMap<String, Language> languages = new HashMap<>();
-    private final Gson gson = new Gson();
+    private HashMap<Player, User> users = new HashMap<>();
+
+    @Override
+    public @Nullable ChunkGenerator getDefaultWorldGenerator(@NotNull String worldName, @Nullable String id) {
+        return new WorldGenerator();
+    }
 
     @Override
     public void onLoad() {
-
-
 
     }
 
@@ -37,9 +45,7 @@ public class TerraCraft extends JavaPlugin {
             return;
         }
         getLogger().info("Loaded Languages [§a" + languages.size() + "§r].");
-
-        listenerRegistration();
-
+        Bukkit.getPluginManager().registerEvents(new PlayerConnectionListener(), this);
     }
 
     @Override
@@ -49,7 +55,7 @@ public class TerraCraft extends JavaPlugin {
 
     public boolean initializeLanguages() {
         try {
-            saveResource("languages/english.json", true);
+            saveResource("languages/english.json", false);
             Arrays.stream(new File("plugins/" + getName() + "/languages/").listFiles()).forEach(file -> {
                 try {
                     JsonObject object = new JsonParser().parse(new JsonReader(new FileReader(file))).getAsJsonObject();
@@ -66,12 +72,6 @@ public class TerraCraft extends JavaPlugin {
         }
     }
 
-    public void listenerRegistration(){
-        PluginManager pluginManager = Bukkit.getPluginManager();
-        pluginManager.registerEvents(new PlayerConnectionListener(), this);
-        pluginManager.registerEvents(new InventoryClickListener(), this);
-    }
-
     public static TerraCraft getInstance() {
         return getPlugin(TerraCraft.class);
     }
@@ -80,7 +80,7 @@ public class TerraCraft extends JavaPlugin {
         return languages;
     }
 
-    public Language getLanguage(String languageName){
-        return languages.get(languageName);
+    public HashMap<Player, User> getUsers() {
+        return users;
     }
 }

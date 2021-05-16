@@ -1,4 +1,5 @@
 name: TerraCraft
+load: STARTUP
 version: ${project.version}
 main: de.docbrumm.terracraft.TerraCraft
 api-version: 1.16

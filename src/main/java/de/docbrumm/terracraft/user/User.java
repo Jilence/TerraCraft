@@ -1,5 +1,6 @@
 package de.docbrumm.terracraft.user;
 
+import de.docbrumm.terracraft.NPC;
 import de.docbrumm.terracraft.TerraCraft;
 import de.docbrumm.terracraft.language.Language;
 import de.docbrumm.terracraft.util.ConfigUtil;
@@ -9,34 +10,65 @@ import java.util.UUID;
 public class User {
 
     UUID uuid;
+    Language language;
+    int level;
+    NPC npc;
+    ConfigUtil util;
 
-
-    public User(UUID uuid){
+    public User(UUID uuid,
+                Language language,
+                int level,
+                NPC npc,
+                ConfigUtil util) {
         this.uuid = uuid;
+        this.language = language;
+        this.level = level;
+        this.npc = npc;
+        this.util = util;
     }
 
-    public Language getLanguage(){
-
-        return TerraCraft.getInstance().getLanguage(new ConfigUtil(ConfigUtil.Configs.PLAYER_CONFIG).getString(uuid + ".language"));
-
+    public boolean exists() {
+        return util.contains(uuid.toString());
     }
 
-    public boolean hasNPC(){
-        return new ConfigUtil(ConfigUtil.Configs.NPC_CONFIG).contains(String.valueOf(uuid));
-
+    public void loadIfPlayedBefore() {
+        if (exists()) {
+            language = TerraCraft.getInstance().getLanguages().get(get("language"));
+            level = (int) get("level");
+        }
     }
 
-    public boolean hasLanguage(){
-        return getLanguage() != null;
+    private Object get(String key) {
+        return util.get(uuid.toString() + "." + key);
     }
 
-    public boolean exist(){
-        return new ConfigUtil(ConfigUtil.Configs.PLAYER_CONFIG).contains(String.valueOf(uuid));
-
+    public void save() {
+        save("language", language.name());
+        save("level", level);
+        npc.save();
     }
 
-    public void setLanguage(String language){
-        new ConfigUtil(ConfigUtil.Configs.PLAYER_CONFIG).set(uuid + ".language", language);
+    private void save(String key, Object any) {
+        util.set(uuid.toString() + "." + key, any);
     }
 
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public Language getLanguage() {
+        return language;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public NPC getNpc() {
+        return npc;
+    }
+
+    public ConfigUtil getUtil() {
+        return util;
+    }
 }
