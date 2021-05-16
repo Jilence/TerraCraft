@@ -1,7 +1,6 @@
 package de.docbrumm.terracraft.language;
 
 import com.google.gson.JsonObject;
-import de.docbrumm.terracraft.util.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;

@@ -4,8 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
-import de.docbrumm.terracraft.gui.inventorys.LanguageTerraInventory;
 import de.docbrumm.terracraft.language.Language;
+import de.docbrumm.terracraft.listener.PlayerConnectionListener;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -22,6 +24,8 @@ public class TerraCraft extends JavaPlugin {
     @Override
     public void onLoad() {
 
+
+
     }
 
     @Override
@@ -33,7 +37,9 @@ public class TerraCraft extends JavaPlugin {
             return;
         }
         getLogger().info("Loaded Languages [§a" + languages.size() + "§r].");
-        getCommand("language").setExecutor(new LanguageTerraInventory());
+
+        listenerRegistration();
+
     }
 
     @Override
@@ -43,7 +49,7 @@ public class TerraCraft extends JavaPlugin {
 
     public boolean initializeLanguages() {
         try {
-            saveResource("languages/english.json", false);
+            saveResource("languages/english.json", true);
             Arrays.stream(new File("plugins/" + getName() + "/languages/").listFiles()).forEach(file -> {
                 try {
                     JsonObject object = new JsonParser().parse(new JsonReader(new FileReader(file))).getAsJsonObject();
@@ -60,11 +66,21 @@ public class TerraCraft extends JavaPlugin {
         }
     }
 
+    public void listenerRegistration(){
+        PluginManager pluginManager = Bukkit.getPluginManager();
+        pluginManager.registerEvents(new PlayerConnectionListener(), this);
+        pluginManager.registerEvents(new InventoryClickListener(), this);
+    }
+
     public static TerraCraft getInstance() {
         return getPlugin(TerraCraft.class);
     }
 
     public HashMap<String, Language> getLanguages() {
         return languages;
+    }
+
+    public Language getLanguage(String languageName){
+        return languages.get(languageName);
     }
 }
