@@ -3,7 +3,6 @@ package de.docbrumm.terracraft;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
-import de.docbrumm.terracraft.commands.CreateNPCCmd;
 import de.docbrumm.terracraft.language.Language;
 import de.docbrumm.terracraft.listener.PlayerConnectionListener;
 import de.docbrumm.terracraft.user.User;

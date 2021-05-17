@@ -1,5 +1,5 @@
 name: TerraCraft
-load: STARTUP
+load: POSTWORLD
 version: ${project.version}
 main: de.docbrumm.terracraft.TerraCraft
 api-version: 1.16
@@ -8,12 +8,10 @@ authors:
   - MoMMde
 description: Play Terraria, a 2D Game, in Minecraft.
 website: docbrumm.stckoverflw.de
-softdepend:
-  - ProtocolLib
+
+
 
 commands:
   language:
     description: Change your Language ingame
     permission: terracraft.language.inventory
-  createnpc:
-    description: Create a NPC
