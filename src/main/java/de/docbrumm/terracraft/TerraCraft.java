@@ -1,13 +1,14 @@
 package de.docbrumm.terracraft;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
+import de.docbrumm.terracraft.commands.CreateNPCCmd;
 import de.docbrumm.terracraft.language.Language;
 import de.docbrumm.terracraft.listener.PlayerConnectionListener;
 import de.docbrumm.terracraft.user.User;
 import de.docbrumm.terracraft.world.WorldGenerator;
+import de.fllip.entity.api.EntityAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.generator.ChunkGenerator;
@@ -38,6 +39,8 @@ public class TerraCraft extends JavaPlugin {
 
     @Override
     public void onEnable() {
+
+
         saveResource("config.yml", false);
         if (!initializeLanguages()) {
             getLogger().warning("Unable to initialize Languages.");
@@ -45,7 +48,12 @@ public class TerraCraft extends JavaPlugin {
             return;
         }
         getLogger().info("Loaded Languages [§a" + languages.size() + "§r].");
+
+
         Bukkit.getPluginManager().registerEvents(new PlayerConnectionListener(), this);
+        getCommand("createNPC").setExecutor(new CreateNPCCmd());
+
+        EntityAPI.init(this);
     }
 
     @Override

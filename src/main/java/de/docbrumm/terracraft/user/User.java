@@ -1,6 +1,6 @@
 package de.docbrumm.terracraft.user;
 
-import de.docbrumm.terracraft.NPC;
+import de.docbrumm.terracraft.npc.NPC;
 import de.docbrumm.terracraft.TerraCraft;
 import de.docbrumm.terracraft.language.Language;
 import de.docbrumm.terracraft.util.ConfigUtil;

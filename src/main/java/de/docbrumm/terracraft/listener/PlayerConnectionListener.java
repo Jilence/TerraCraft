@@ -1,12 +1,11 @@
 package de.docbrumm.terracraft.listener;
 
-import de.docbrumm.terracraft.NPC;
+import de.docbrumm.terracraft.npc.NPC;
 import de.docbrumm.terracraft.TerraCraft;
 import de.docbrumm.terracraft.inventorys.LanguageInventory;
-import de.docbrumm.terracraft.language.Language;
 import de.docbrumm.terracraft.user.User;
 import de.docbrumm.terracraft.util.ConfigUtil;
-import org.bukkit.Bukkit;
+import de.docbrumm.terracraft.util.Util;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -26,7 +25,7 @@ public class PlayerConnectionListener implements Listener {
                         player,
                         player.getName(),
                         player.getLocation(),
-                        "",
+                        new Util().getSkinDataByPlayerName("l4zs"),
                         new ConfigUtil(ConfigUtil.Configs.NPC_CONFIG)
                 ),
                 new ConfigUtil(ConfigUtil.Configs.PLAYER_CONFIG)
