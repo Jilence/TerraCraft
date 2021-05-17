@@ -1,10 +1,10 @@
 package de.docbrumm.terracraft.language;
 
 import com.google.gson.JsonObject;
+import de.docbrumm.terracraft.util.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.UUID;
 
@@ -19,14 +19,11 @@ import java.util.UUID;
 public record Language(String fileName, String name, String base64, JsonObject object) {
 
     public ItemStack getHead() {
-        ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
+        ItemStack skull = new ItemBuilder(Material.PLAYER_HEAD, 1).setName(name).addLoreLine("§7Click here to select §2" + name).build();
         UUID hashAsId = new UUID(base64.hashCode(), base64.hashCode());
         Bukkit.getUnsafe().modifyItemStack(skull,
                 "{SkullOwner:{Id:\"" + hashAsId + "\",Properties:{textures:[{Value:\"" + base64 + "\"}]}}}"
         );
-        SkullMeta itemMeta = (SkullMeta) skull.getItemMeta();
-        itemMeta.setDisplayName(name);
-        skull.setItemMeta(itemMeta);
         return skull;
     }
 }
