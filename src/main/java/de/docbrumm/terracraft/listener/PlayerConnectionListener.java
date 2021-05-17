@@ -27,7 +27,6 @@ public class PlayerConnectionListener implements Listener {
                         player,
                         player.getName(),
                         player.getLocation(),
-                        new Util().getSkinDataByPlayerName("l4zs"),
                         new ConfigUtil(ConfigUtil.Configs.NPC_CONFIG)
                 ),
                 new ConfigUtil(ConfigUtil.Configs.PLAYER_CONFIG)

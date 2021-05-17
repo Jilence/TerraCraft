@@ -17,19 +17,16 @@ public class NPC {
 
     OfflinePlayer owner;
     String name;
-    SkinData skin;
     Location location;
     ConfigUtil util;
 
     public NPC(OfflinePlayer owner,
                String name,
                Location location,
-               SkinData skin,
                ConfigUtil configUtil) {
         this.owner = owner;
         this.name = name;
         this.location = location;
-        this.skin = skin;
         this.util = configUtil;
     }
 
@@ -41,12 +38,10 @@ public class NPC {
     public void save() {
         set("name", name);
         set("location", location);
-        set("skin", skin);
     }
 
     public void loadData() {
         name = (String) get("name");
-        skin = (SkinData) get("skin");
         location = (Location) get("location");
     }
 
