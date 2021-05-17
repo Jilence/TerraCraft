@@ -13,6 +13,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerConnectionListener implements Listener {
+    
+    LanguageInventory languageInventory = new LanguageInventory();
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event){
@@ -33,7 +35,7 @@ public class PlayerConnectionListener implements Listener {
         TerraCraft.getInstance().getUsers().put(player, user);
         System.out.println(user.getLanguage().name());
         if(!user.exists()) {
-            new LanguageInventory().openInventory(player);
+            languageInventory.openInventory(player);
         }
         user.loadIfPlayedBefore();
         player.teleport(player.getWorld().getHighestBlockAt(0, 0).getLocation().add(0, 1, 0));
